@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
     <title>Clamming Kit</title>
 </head>
 
@@ -12,42 +13,42 @@
     <h1>The Clamming Kit (upgraded for HorizonXI)</h1>
 <fieldset>
     
-    <button>Pebble</button>
-    <button>Bibiki Slug</button>
-    <button>Jacknife</button>
-    <button>Pamtam Kelp</button>
-    <button>Vongola Clam</button>
-    <button>Shall Shell</button>
-    <button>Fish Scales</button>
-    <button>Pugil Scales</button>
-    <button>White Sand</button>
-    <button>Seashell</button>
-    <button>Nebimonite</button>
-    <button>Hobgoblin Bread</button>
-    <button>Hobgoblin Pie</button>
-    <button>Bkn. Willow Fish. Rod</button>
-    <button>Goblin Mask</button>
-    <button>Goblin Armour</button>
-    <button>Goblin Mail</button>
-    <button>Crab Shell</button>
-    <button>H.Q. Pugli Scales</button>
-    <button>Tropical Clam</button>
-    <button>Maple Log</button>
-    <button>Titanictus Shell</button>
-    <button>Bibiki Urchin</button>
-    <button>Coral Fragment</button>
-    <button>Turtle Shell</button>
-    <button>Urganite Shell</button>
-    <button>Lacquer Tree Log</button>
-    <button>Elm Log</button>
-    <button>Petrified Log</button>
-    <button>H.Q. Crab Shell</button>
-    <button>Oxblood</button>
+    <button class="item" data-action="7pz">Pebble</button>
+    <button class="item" data-action="3pz">Bibiki Slug</button>
+    <button class="item" data-action="6pz">Jacknife</button>
+    <button class="item" data-action="6pz">Pamtam Kelp</button>
+    <button class="item" data-action="6pz">Vongola Clam</button>
+    <button class="item" data-action="6pz">Shall Shell</button>
+    <button class="item" data-action="3pz">Fish Scales</button>
+    <button class="item" data-action="3pz">Pugil Scales</button>
+    <button class="item" data-action="7pz">White Sand</button>
+    <button class="item" data-action="6pz">Seashell</button>
+    <button class="item" data-action="6pz">Nebimonite</button>
+    <button class="item" data-action="6pz">Hobgoblin Bread</button>
+    <button class="item" data-action="6pz">Hobgoblin Pie</button>
+    <button class="item" data-action="6pz">Bkn. Willow Fish. Rod</button>
+    <button class="item" data-action="6pz">Goblin Mask</button>
+    <button class="item" data-action="6pz">Goblin Armour</button>
+    <button class="item" data-action="6pz">Goblin Mail</button>
+    <button class="item" data-action="6pz">Crab Shell</button>
+    <button class="item" data-action="6pz">H.Q. Pugli Scales</button>
+    <button class="item" data-action="20pz">Tropical Clam</button>
+    <button class="item" data-action="6pz">Maple Log</button>
+    <button class="item" data-action="6pz">Titanictus Shell</button>
+    <button class="item" data-action="6pz">Bibiki Urchin</button>
+    <button class="item" data-action="6pz">Coral Fragment</button>
+    <button class="item" data-action="6pz">Turtle Shell</button>
+    <button class="item" data-action="6pz">Urganite Shell</button>
+    <button class="item" data-action="6pz">Lacquer Tree Log</button>
+    <button class="item" data-action="6pz">Elm Log</button>
+    <button class="item" data-action="6pz">Petrified Log</button>
+    <button class="item" data-action="6pz">H.Q. Crab Shell</button>
+    <button class="item" data-action="6pz">Oxblood</button>
 
     
 </fieldset>
 <div class="controls">
-    <h2>Total Weight: 0</h2>
+    <h2 >Total Weight: <span id="bucket-weight">0</span></h2>
     <button id="remove">Remove Item</button>
     <button id="empty">Empty Bucket</button>
     
