@@ -7,8 +7,44 @@
     src: url(./fonts/Roboto-Regular.ttf);
   }
 
-h1, h2, h3, fieldset, #bucket-contents {
-    margin-left: 10px;
+h1, .value-container, h3, fieldset, #bucket-contents, .controls {
+    margin-left: 75px;
+}
+
+h1 {
+    font-weight:900;
+    text-align: center;
+}
+
+h2 { 
+    margin-top: 0px;
+    
+}
+
+h3 {
+    margin-top: 50px;
+    margin-bottom: 0px;
+}
+
+.background {
+    background-image: url("./ffxi-banner.png");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    background-color: white;
+    
+    
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    
 }
 
 fieldset {
@@ -20,41 +56,66 @@ fieldset {
     grid-template-columns: repeat(3, 150px);
     grid-template-rows: repeat(11, 25px);
     grid-auto-flow: column;
-    width: 500px;
-    grid-gap: 3px;
+    width:500px;
+    
+    row-gap: 18px;
 
 }
 
-
-h2 { 
-    margin-top: 0px;
+.item, #remove, #empty {
+  background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
+  border-radius: .25rem;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.75rem;
+  text-decoration: none;
+  width: 98%;
+  height: 2.5rem;
+  border: 0;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-h3 {
-    margin-top: 50px;
-    margin-bottom: 0px;
+.item:hover, #remove:hover, #empty:hover {
+  background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
 }
+
 
 .controls {
-    margin-top: 15px;
-    
+    margin-top: 50px;
+    margin-bottom: 25px;
     display: flex;
-    width: 466px;
+    width: 800px;
     height: 25px;
-    gap: 3px;
+    column-gap: 3px;
+    
 }
 
 #remove {
-    margin-left: auto;
+    margin-left: 2auto;
+    width: auto;
+}
+
+#empty {
+    width: auto;
 }
 
 #bucket-contents {
     margin-top: 10px;
-    background-color: lightgray;
+    background-color: rgba(240, 240, 240, 0.8);
     border: 1px solid black;
     width: 500px;
     height: 300px;
     overflow: auto;
     font-size: small;
 }
+
+
 
