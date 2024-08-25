@@ -7,14 +7,14 @@
     src: url(./fonts/Roboto-Regular.ttf);
   }
 
-h1, h2, h3, fieldset {
+h1, h2, h3, fieldset, #bucket-contents {
     margin-left: 10px;
 }
 
 fieldset {
     
     display: grid;
-    margin-bottom: 25px;
+    margin-bottom: 0px;
     padding: 0px;
     border: none;
     grid-template-columns: repeat(3, 150px);
@@ -24,16 +24,20 @@ fieldset {
     grid-gap: 3px;
 
 }
-h3 {
-    margin:
-}
+
 
 h2 { 
     margin-top: 0px;
 }
 
+h3 {
+    margin-top: 50px;
+    margin-bottom: 0px;
+}
+
 .controls {
-    margin-top: 10px;
+    margin-top: 15px;
+    
     display: flex;
     width: 466px;
     height: 25px;
@@ -42,5 +46,15 @@ h2 {
 
 #remove {
     margin-left: auto;
+}
+
+#bucket-contents {
+    margin-top: 10px;
+    background-color: lightgray;
+    border: 1px solid black;
+    width: 500px;
+    height: 300px;
+    overflow: auto;
+    font-size: small;
 }
 
