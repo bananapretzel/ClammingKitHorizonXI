@@ -224,3 +224,18 @@ function normaliseValue(value, min, max) {
 function normaliseMod(dividend, divisor) {
     return ((dividend % divisor) + divisor) % divisor;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const timerDisplay = document.getElementById('timer');
+    let currentNumber = 1;
+    const maxNumber = 10;
+    
+    // Function to update the displayed number
+    function updateNumber() {
+        timerDisplay.textContent = currentNumber;
+        currentNumber = (currentNumber % maxNumber) + 1; // Cycle through 1 to 10
+    }
+    
+    // Update the number every second (1000 milliseconds)
+    setInterval(updateNumber, 1000);
+});
