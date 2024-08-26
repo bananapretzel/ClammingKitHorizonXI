@@ -1,40 +1,62 @@
 :root {
-    font-family: Roboto,  system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 @font-face {
     font-family: Roboto;
     src: url(./fonts/Roboto-Regular.ttf);
-  }
+}
 
-h1, .value-container, h3, fieldset, #bucket-contents, .controls {
-    margin-left: 75px;
+@font-face {
+    font-family: "Baskervville";
+    src: url(./fonts/BaskervvilleSC-Regular.ttf);
+}
+
+.logo {
+    margin-left: 10px;
+    height: 50px;
+    width:50px;
 }
 
 h1 {
-    font-weight:900;
-    text-align: center;
+    
+    font-weight: 300;
+    font-family: "Bakervville";
+    font-size: 48px;
+    margin: 0;
 }
 
-h2 { 
+h2 {
     margin-top: 0px;
-    
+    margin-bottom: 0px;
+
 }
 
 h3 {
-    margin-top: 50px;
-    margin-bottom: 0px;
+    margin: 0;
+
+}
+
+header {
+    display: flex;
+    justify-content: center;  /* Centers the content horizontally */
+  align-items: center; 
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    height: 100px;
+    
+    
 }
 
 .background {
-    background-image: url("./ffxi-banner.png");
+    background-image: url("./assets/ffxi-banner.png");
     background-position: bottom;
     background-repeat: no-repeat;
     height: 100vh;
     margin: 0;
     background-color: white;
-    
-    
+
+
 }
 
 .overlay {
@@ -44,78 +66,201 @@ h3 {
     right: 0;
     bottom: 0;
     background-color: rgba(255, 255, 255, 0.8);
-    
+
+}
+
+.grid-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    height: 650px;
+    width: 500px;
 }
 
 fieldset {
     
     display: grid;
+    width: auto;
+    height: 550px;
     margin-bottom: 0px;
+    margin: 0;
     padding: 0px;
     border: none;
     grid-template-columns: repeat(3, 150px);
     grid-template-rows: repeat(11, 25px);
     grid-auto-flow: column;
-    width:500px;
     
     row-gap: 18px;
-
 }
 
 .item, #remove, #empty {
-  background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
-  border-radius: .25rem;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  display: flex;
-  font-size: 14px;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 1.75rem;
-  text-decoration: none;
-  width: 98%;
-  height: 2.5rem;
-  border: 0;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+
+    
+    border-radius: .25rem;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.75rem;
+    text-decoration: none;
+    width: 98%;
+    height: 2.5rem;
+    border: 0;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .item:hover, #remove:hover, #empty:hover {
-  background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.trash {
+    background-image: linear-gradient(-180deg, #c0c0c0 0%, #8c8c8c 100%);
+}
+
+.trash:hover {
+    background-image: linear-gradient(-180deg, #9e9e9e 0%, #727171 100%);
+    
+}
+
+.slightly-trash {
+    background-image: linear-gradient(-180deg, #37AEE2 0%, #1a80ac 100%);
+}
+.slightly-trash:hover {
+    background-image: linear-gradient(-180deg, #1983b0 0%, #146487 100%);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.money {
+    background-image: linear-gradient(-180deg, #11ca01 0%, #0ea300 100%);
+}
+
+.money:hover {
+    background-image: linear-gradient(-180deg, #10b401 0%, #0c8701 100%);
+}
+
+.good-money {
+    background-image: linear-gradient(-180deg, #FFD700 0%, #d5b500 100%);
+}
+
+.good-money:hover {
+    background-image: linear-gradient(-180deg, #dab900 0%, #a99001 100%);
+}
+
+.rich {
+    background-image: linear-gradient(-180deg, #a400da 0%, #710096 100%);
+}
+.rich:hover {
+    background-image: linear-gradient(-180deg, #670089 0%, #580175 100%);
+}
+
+.oxblood {
+    background-image: linear-gradient(-180deg, #e01c1c 0%, #9f0c0c 100%);
+}
+.oxblood:hover {
+    background-image: linear-gradient(-180deg, #b11616 0%, #9d0c0c 100%);
 }
 
 
 .controls {
-    margin-top: 50px;
-    margin-bottom: 25px;
+
     display: flex;
-    width: 800px;
-    height: 25px;
-    column-gap: 3px;
-    
+    justify-content: space-between;
+    width: 300px;
+    margin-top: 10px;
+
+
 }
 
 #remove {
     margin-left: 2auto;
     width: auto;
+    
 }
 
 #empty {
     width: auto;
+    
+}
+
+#bucket-img {
+
+    background-image: url("./assets/bucket.png");
+    background-size: cover;
+    /* Ensures the image covers the entire div */
+    background-position: center;
+    /* Center the image in the div */
+    background-repeat: no-repeat;
+    /* Prevent the image from repeating */
+    width: 400px;
+    height: 500px;
 }
 
 #bucket-contents {
-    margin-top: 10px;
-    background-color: rgba(240, 240, 240, 0.8);
-    border: 1px solid black;
-    width: 500px;
-    height: 300px;
+    display: flex;
+    flex-direction: column-reverse;
+    position: absolute;
+    width: 200px;
+    height: 275px;
+    top: 375px;
+
     overflow: auto;
     font-size: small;
+
 }
 
+.bucket-item {
+    text-align: center;
+    
+    border-radius: 0.25rem;
+    margin-bottom: 2px;
+    background-color: #11ca01;
 
+}
+main {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px;
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
 
+.status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    height: 400px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+#value {
+    color: red;
+}
+
+.value-container, .weight-container {
+    margin-top: 75px;
+}
+
+#bucket-weight, #value {
+    font-size: 36px;
+}
+
+.right-side {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    flex-direction: column;
+}
