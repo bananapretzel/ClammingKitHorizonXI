@@ -1,20 +1,23 @@
-const fieldset = document.getElementsByTagName("fieldset");
+const fieldset = document.querySelector("fieldset");
 const bucketWeightDisplay = document.getElementById("bucket-weight");
 const emptyBtn = document.getElementById("empty");
 const removeBtn = document.getElementById("remove");
 const bucketContents = document.getElementById("bucket-contents");
 const valueDisplay = document.getElementById("value");
+
 let totalValue = Number(valueDisplay.textContent);
 let bucketWeight = Number(bucketWeightDisplay.textContent);
 
-const trashColour = "#c0c0c0";
-const slightlyTrashColour = "#37AEE2";
-const moneyColour = "#11ca01";
-const goodMoneyColour = "#FFD700";
-const richColour = "#a400da";
-const oxbloodColour = "#e01c1c";
+const COLOURS = {
+    trash: "#c0c0c0",
+    slightlyTrash: "#37AEE2",
+    money: "#11ca01",
+    goodMoney: "#FFD700",
+    rich: "#a400da",
+    oxblood: "#e01c1c",
+};
 
-const valuesMap = {
+const ITEM_VALUES = {
     "Pebble": { weight: 7, value: 1 },
     "Bibiki Slug": { weight: 3, value: 10 },
     "Jacknife": { weight: 11, value: 56 },
@@ -46,141 +49,178 @@ const valuesMap = {
     "Petrified Log": { weight: 6, value: 2193 },
     "H.Q. Crab Shell": { weight: 6, value: 3312 },
     "Oxblood": { weight: 6, value: 13250 },
-}
+};
 
-
-
-fieldset[0].addEventListener("click", function (event) {
-
+fieldset.addEventListener("click", (event) => {
     const itemName = event.target.textContent;
-
     if (event.target.classList.contains("item")) {
         addToBucket(itemName);
         updateValues(itemName);
         updateProfitGradient(totalValue);
         updateWarningColour(bucketWeight);
-
     }
 });
 
+/**
+ * Adds an item to the bucket and updates the display.
+ * Creates a new `div` element for the item, sets its text and background colour 
+ * based on the item's value, and appends it to the `bucketContents` element. 
+ * Updates the bucket's weight and total value accordingly.
+ * 
+ * @param {string} itemName - The name of the item to add to the bucket.
+ * @returns {void}
+ */
 function addToBucket(itemName) {
     const itemElement = document.createElement("div");
     itemElement.textContent = itemName;
     itemElement.classList.add("bucket-item");
-    const itemValue = valuesMap[itemName].value;
-    if (itemValue < 250) {
-        itemElement.style.backgroundColor = trashColour;
-    } else if (itemValue >= 250 && itemValue <= 1000) {
-        itemElement.style.backgroundColor = slightlyTrashColour;
-    } else if (itemValue > 1000 && itemValue <= 2000) {
-        itemElement.style.backgroundColor = moneyColour;
-    } else if (itemValue > 2000 && itemValue <= 5000) {
-        itemElement.style.backgroundColor = goodMoneyColour;
-    } else if (itemValue > 5000 && itemValue <= 10000) {
-        itemElement.style.backgroundColor = richColour;
-    } else {
-        itemElement.style.backgroundColor = oxbloodColour;
-    }
-
+    
+    const { value } = ITEM_VALUES[itemName];
+    itemElement.style.backgroundColor = getItemColour(value);
+    itemElement.style.color = "white";
+    itemElement.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 1)";
+    
     bucketContents.appendChild(itemElement);
-    bucketContents.scrollTop = -bucketContents.scrollHeight;
+    bucketContents.scrollTop = bucketContents.scrollHeight; // Scroll to bottom
 }
 
+function getItemColour(value) {
+    if (value < 250) return COLOURS.trash;
+    if (value <= 1000) return COLOURS.slightlyTrash;
+    if (value <= 2000) return COLOURS.money;
+    if (value <= 5000) return COLOURS.goodMoney;
+    if (value <= 10000) return COLOURS.rich;
+    return COLOURS.oxblood;
+}
+
+/**
+ * Updates the bucket's total value and weight displays based on the given item name.
+ * 
+ * @param {string} itemName - The name of the item to update.
+ * @returns {void}
+ */
 function updateValues(itemName) {
-
-    bucketWeight += valuesMap[itemName].weight;
+    const { weight, value } = ITEM_VALUES[itemName];
+    bucketWeight += weight;
+    totalValue += value;
+    
     bucketWeightDisplay.textContent = bucketWeight;
-    totalValue += valuesMap[itemName].value;
     valueDisplay.textContent = totalValue;
-
 }
 
+/**
+ * Clears the bucket by resetting weight, value, and removing all items from the 
+ * bucket contents. Also updates the display to reflect the changes.
+ * 
+ * @returns {void}
+ */
 emptyBtn.addEventListener("click", () => {
     bucketWeight = 0;
+    totalValue = -500;
+    
     bucketWeightDisplay.textContent = bucketWeight;
     bucketContents.innerHTML = "";
     bucketWeightDisplay.style.backgroundColor = "transparent";
-    totalValue = -500;
     valueDisplay.textContent = totalValue;
     valueDisplay.style.color = "red";
-
 });
 
+/**
+ * Removes the last item from the bucket and updates the weight and value displays.
+ * Adjusts the profit gradient and warning color based on the new total value 
+ * and weight.
+ * 
+ * @returns {void}
+ */
 removeBtn.addEventListener("click", () => {
     const lastChild = bucketContents.lastChild;
     if (lastChild) {
-        const itemValue = valuesMap[lastChild.textContent].value;
-        const itemWeight = valuesMap[lastChild.textContent].weight;
+        const itemName = lastChild.textContent;
+        const { value, weight } = ITEM_VALUES[itemName];
         
-
         bucketContents.removeChild(lastChild);
-        bucketWeight -= itemWeight;
-        totalValue -= itemValue;
-        valueDisplay.textContent = totalValue;
+        bucketWeight -= weight;
+        totalValue -= value;
+        
         bucketWeightDisplay.textContent = bucketWeight;
+        valueDisplay.textContent = totalValue;
         updateProfitGradient(totalValue);
         updateWarningColour(bucketWeight);
-
-
     }
-
-
 });
 
-function updateWarningColour(number) {
-    const redRangeSize = 5;
-    const yellowRangeSize = 3;
-    const interval = 50;
+/**
+ * Updates the background color of the weight display based on the current weight.
+ * 
+ * @param {number} number - The current weight to check against thresholds.
+ * @returns {void}
+ */
+function updateWarningColour(weight) {
     const redBase = 45;
     const yellowBase = 40;
     const orangeBase = 44;
-
-    if ((normaliseMod((number - redBase), interval) <= redRangeSize)) {
+    const interval = 50;
+    
+    const normalisedWeight = normaliseMod(weight - redBase, interval);
+    if (normalisedWeight <= 5) {
         bucketWeightDisplay.style.backgroundColor = "red";
-    } else if (Math.abs(number - orangeBase) % interval === 0) {
+    } else if (Math.abs(weight - orangeBase) % interval === 0) {
         bucketWeightDisplay.style.backgroundColor = "orange";
-    } else if ((normaliseMod((number - yellowBase),
-        interval) <= yellowRangeSize)) {
+    } else if (normaliseMod(weight - yellowBase, interval) <= 3) {
         bucketWeightDisplay.style.backgroundColor = "lightgoldenrodyellow";
     } else {
         bucketWeightDisplay.style.backgroundColor = "transparent";
     }
 }
 
+/**
+ * Updates the text colour of the value display based on the current total value.
+ * 
+ * @param {number} value - The current total value to determine the colour.
+ * @returns {void}
+ */
 function updateProfitGradient(value) {
     const min = -500;
     const breakEven = 0;
     const max = 4000;
 
-    // Compute the color based on normalized value
     let red, green, blue = 0;
-
     if (value <= 0) {
         const modifier = normaliseValue(value, min, breakEven);
         red = Math.round(255 * (1 - modifier));
-        green = Math.round(0 * (1 - modifier));
+        green = 0;
     } else {
-        // Transition from black to green
         const modifier = normaliseValue(value, breakEven, max);
         red = Math.round(50 * modifier);
         green = Math.round(200 * modifier);
         blue = Math.round(50 * modifier);
     }
 
-    // Set the color of the number
-    const color = `rgb(${red}, ${green}, ${blue})`;
-    document.getElementById('value').style.color = color;
-
+    const colour = `rgb(${red}, ${green}, ${blue})`;
+    valueDisplay.style.color = colour;
 }
 
+/**
+ * Normalizes a value within a given range.
+ * 
+ * @param {number} value - The value to normalize.
+ * @param {number} min - The minimum value of the range.
+ * @param {number} max - The maximum value of the range.
+ * @returns {number} - The normalized value between 0 and 1.
+ */
 function normaliseValue(value, min, max) {
-    const beforeClamp = (value - min) / (max - min);
-    return Math.min(Math.max(beforeClamp, 0), 1)
+    const normalised = (value - min) / (max - min);
+    return Math.min(Math.max(normalised, 0), 1);
 }
 
-// Getting modulo from negative numbers is weird, this will fix it.
+/**
+ * Returns the result of the modulo operation with a positive result, even if 
+ * the dividend is negative.
+ * 
+ * @param {number} dividend - The value to be divided.
+ * @param {number} divisor - The value to divide by.
+ * @returns {number} - The non-negative result of the modulo operation.
+ */
 function normaliseMod(dividend, divisor) {
     return ((dividend % divisor) + divisor) % divisor;
 }
-
-

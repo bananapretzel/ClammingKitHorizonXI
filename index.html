@@ -13,11 +13,13 @@
     <div class="overlay">
         <header>
             <h1>The Clamming Kit HorizonXI</h1>
-            <img class="logo" src="./assets/horizon-logo.png" alt="">
+            <img class="logo" src="./assets/horizon-logo.png" alt="Horizon XI Logo">
         </header>
+
         <main>
-            <div class="grid-wrapper">
+            <section class="grid-wrapper">
                 <fieldset>
+                    
                     <button class="item trash">Pebble</button>
                     <button class="item trash">Bibiki Slug</button>
                     <button class="item trash">Jacknife</button>
@@ -50,23 +52,27 @@
                     <button class="item good-money">H.Q. Crab Shell</button>
                     <button class="item oxblood">Oxblood</button>
                 </fieldset>
-            </div>
-            <div class="status">
-                <div class="weight-container"><span id="bucket-weight">0</span>pz</div>
+            </section>
+
+            <section class="status">
+                <div class="weight-container">
+                    <span id="bucket-weight">0</span> pz
+                </div>
                 <h2>Weight:</h2>
-                <div class="value-container"><span id="value">-500</span>g</div>
+                <div class="value-container">
+                    <span id="value">-500</span> g
+                </div>
                 <h2>Profit:</h2>
-                
-            </div>
-            <div class="right-side">
-                <div id="bucket-img"></div>
-                <div id="bucket-contents"></div>
+            </section>
+
+            <section class="right-side">
+                <div id="bucket-img" role="img" aria-label="Bucket Image"></div>
+                <div id="bucket-contents" aria-live="polite"></div>
                 <div class="controls">
                     <button id="remove" class="trash">Remove Item</button>
                     <button id="empty" class="trash">Empty Bucket</button>
                 </div>
-
-            </div>
+            </section>
         </main>
     </div>
 </body>
