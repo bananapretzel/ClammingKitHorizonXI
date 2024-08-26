@@ -87,6 +87,8 @@ function addToBucket(itemName) {
     itemElement.style.backgroundColor = getItemColour(value);
     itemElement.style.color = "white";
     itemElement.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 1)";
+    itemElement.style.width = "150px"
+    
     
     bucketContents.appendChild(itemElement);
     bucketContents.scrollTop = -bucketContents.scrollHeight;
@@ -240,23 +242,4 @@ function normaliseMod(dividend, divisor) {
     return ((dividend % divisor) + divisor) % divisor;
 }
 
-/**
- * Updates the displayed number on the timer and cycles through numbers 1 to 10.
- * The number is incremented every second and wraps back to 1 after reaching 10.
- * 
- * @returns {void} This function does not return a value.
- */
-document.addEventListener("DOMContentLoaded", () => {
-    const timerDisplay = document.getElementById('timer');
-    let currentNumber = 1;
-    const maxNumber = 10;
-    
-    // Function to update the displayed number
-    function updateNumber() {
-        timerDisplay.textContent = currentNumber;
-        currentNumber = (currentNumber % maxNumber) + 1; // Cycle through 1 to 10
-    }
-    
-    // Update the number every second (1000 milliseconds)
-    setInterval(updateNumber, 1000);
-});
+

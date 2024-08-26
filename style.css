@@ -211,9 +211,6 @@ fieldset {
     height: 40px;
 }
 
-#timer {
-    margin-top: 25px;
-}
 #bucket-img {
     background-image: url("./assets/bucket.png");
     background-size: cover;
@@ -227,11 +224,15 @@ fieldset {
     display: flex;
     flex-direction: column-reverse;
     position: absolute;
+    align-items: center;
     width: 200px;
     height: 275px;
-    top: 375px;
+    top: 175px;
+    left: 109px;
     overflow: auto;
     font-size: small;
+    scrollbar-gutter: stable;
+    
 }
 
 .bucket-item {
@@ -273,6 +274,7 @@ main {
 .right-side {
     display: flex;
     align-items: center;
+    position: relative;
     background-color: rgba(255, 255, 255, 0.7);
     box-shadow: 0 0 10px var(--color-dark-shadow);
     border-radius: 1rem;
