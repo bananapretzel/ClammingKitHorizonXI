@@ -51,6 +51,14 @@ const ITEM_VALUES = {
     "Oxblood": { weight: 6, value: 13250 },
 };
 
+/**
+ * Handles click events on the fieldset element.
+ * If the clicked element has the class "item", it updates the bucket with the 
+ * item's information, updates the total value and weight, and adjusts the 
+ * visual indicators.
+ * 
+ * @param {MouseEvent} event - The click event object.
+ */
 fieldset.addEventListener("click", (event) => {
     const itemName = event.target.textContent;
     if (event.target.classList.contains("item")) {
@@ -81,9 +89,16 @@ function addToBucket(itemName) {
     itemElement.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 1)";
     
     bucketContents.appendChild(itemElement);
-    bucketContents.scrollTop = bucketContents.scrollHeight; // Scroll to bottom
+    bucketContents.scrollTop = -bucketContents.scrollHeight;
 }
 
+/**
+ * Returns the colour associated with the given item value.
+ * The colour is determined based on predefined value ranges.
+ * 
+ * @param {number} value - The value of the item to determine the color for.
+ * @returns {string} The color code associated with the given item value.
+ */
 function getItemColour(value) {
     if (value < 250) return COLOURS.trash;
     if (value <= 1000) return COLOURS.slightlyTrash;
@@ -225,6 +240,12 @@ function normaliseMod(dividend, divisor) {
     return ((dividend % divisor) + divisor) % divisor;
 }
 
+/**
+ * Updates the displayed number on the timer and cycles through numbers 1 to 10.
+ * The number is incremented every second and wraps back to 1 after reaching 10.
+ * 
+ * @returns {void} This function does not return a value.
+ */
 document.addEventListener("DOMContentLoaded", () => {
     const timerDisplay = document.getElementById('timer');
     let currentNumber = 1;
