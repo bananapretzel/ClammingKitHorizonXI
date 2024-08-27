@@ -4,7 +4,8 @@ const emptyBtn = document.getElementById("empty");
 const removeBtn = document.getElementById("remove");
 const bucketContents = document.getElementById("bucket-contents");
 const valueDisplay = document.getElementById("value");
-
+const bucketElement = document.getElementById("bucket-img");
+console.log(bucketElement);
 let totalValue = Number(valueDisplay.textContent);
 let bucketWeight = Number(bucketWeightDisplay.textContent);
 
@@ -137,7 +138,9 @@ emptyBtn.addEventListener("click", () => {
     
     bucketWeightDisplay.textContent = bucketWeight;
     bucketContents.innerHTML = "";
-    bucketWeightDisplay.style.backgroundColor = "transparent";
+    bucketElement.style.fill = "black";
+    bucketElement.style.stroke = "black";
+    
     valueDisplay.textContent = totalValue;
     valueDisplay.style.color = "red";
 });
@@ -167,7 +170,7 @@ removeBtn.addEventListener("click", () => {
 });
 
 /**
- * Updates the background color of the weight display based on the current weight.
+ * Updates the colour of the bucket vector display based on the current weight.
  * 
  * @param {number} number - The current weight to check against thresholds.
  * @returns {void}
@@ -178,15 +181,21 @@ function updateWarningColour(weight) {
     const orangeBase = 44;
     const interval = 50;
     
-    const normalisedWeight = normaliseMod(weight - redBase, interval);
-    if (normalisedWeight <= 5) {
-        bucketWeightDisplay.style.backgroundColor = "red";
+    if (weight <= 0) {
+        bucketElement.style.stroke = "black";
+        bucketElement.style.fill = "black";
+    } else if (normaliseMod(weight - redBase, interval) <= 5) {
+        bucketElement.style.fill = "red";
+        bucketElement.style.stroke = "red";
     } else if (Math.abs(weight - orangeBase) % interval === 0) {
-        bucketWeightDisplay.style.backgroundColor = "orange";
+        bucketElement.style.stroke = "darkorange";
+        bucketElement.style.fill = "darkorange";
     } else if (normaliseMod(weight - yellowBase, interval) <= 3) {
-        bucketWeightDisplay.style.backgroundColor = "lightgoldenrodyellow";
+        bucketElement.style.stroke = "gold";
+        bucketElement.style.fill = "gold";
     } else {
-        bucketWeightDisplay.style.backgroundColor = "transparent";
+        bucketElement.style.stroke = "black";
+        bucketElement.style.fill = "black";
     }
 }
 
