@@ -2,22 +2,29 @@
 :root {
     --font-primary: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --font-secondary: 'Baskervville';
-    --color-white: #ffffff;
-    --color-black: rgba(0, 0, 0, 0.1);
-    --color-dark-shadow: rgba(0, 0, 0, 0.2);
-    --color-light-blue: #37AEE2;
-    --color-dark-blue: #1a80ac;
-    --color-green: #11ca01;
-    --color-dark-green: #0ea300;
-    --color-gold: #FFD700;
-    --color-dark-gold: #d5b500;
-    --color-purple: #a400da;
-    --color-dark-purple: #710096;
-    --color-red: #e01c1c;
-    --color-dark-red: #9f0c0c;
-    --color-grey-light: #c0c0c0;
-    --color-grey-dark: #8c8c8c;
-    --color-light-grey: #f0f0f0;
+    --colour-white: #ffffff;
+    --colour-black: rgba(0, 0, 0, 0.1);
+    --colour-dark-shadow: rgba(0, 0, 0, 0.2);
+    --colour-light-blue: #37AEE2;
+    --colour-dark-blue: #1a80ac;
+    --colour-green: #11ca01;
+    --colour-dark-green: #0ea300;
+    --colour-gold: #FFD700;
+    --colour-dark-gold: #d5b500;
+    --colour-purple: #a400da;
+    --colour-dark-purple: #710096;
+    --colour-red: #e01c1c;
+    --colour-dark-red: #9f0c0c;
+    --colour-grey-light: #c0c0c0;
+    --colour-grey-dark: #8c8c8c;
+    --colour-light-grey: #f0f0f0;
+    --background-colour: #ffffff;
+    --text-colour: #000000;
+    --text-button-colour-white: #ffffff;
+    --section-opaque: rgba( 255, 255, 255, 0.8);
+    --background-opaque: rgba(255, 255, 255, 0.7);
+    --header-opaque: rgba( 255, 255, 255, 0.8);
+    --background-image-opacity: 0.5;
 }
 
 /* Font Faces */
@@ -31,11 +38,30 @@
     src: url('./fonts/BaskervvilleSC-Regular.ttf');
 }
 
+
+
 /* Base Styles */
 body {
     font-family: var(--font-primary);
     margin: 0;
     padding: 0;
+    color: var(--text-colour);
+}
+
+body::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("./assets/ffxi-banner.png");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-color: var(--background-colour);
+    z-index: -1;
+    opacity: var(--background-image-opacity);
 }
 
 h1, h2, h3 {
@@ -65,41 +91,21 @@ h3 {
     height: 50px;
 }
 
-/* Header */
 header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-white);
-    box-shadow: 0 0 10px var(--color-dark-shadow);
+    background-color: var(--header-opaque);
+    box-shadow: 0 0 10px var(--colour-dark-shadow);
     height: 100px;
 }
 
-/* Background and Overlay */
-.background {
-    background-image: url("./assets/ffxi-banner.png");
-    background-position: bottom;
-    background-repeat: no-repeat;
-    height: 100vh;
-    background-color: var(--color-white);
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.8);
-}
-
-/* Grid Wrapper */
 .grid-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 0 10px var(--color-dark-shadow);
+    background-color: var(--section-opaque);
+    box-shadow: 0 0 10px var(--colour-dark-shadow);
     border-radius: 1rem;
     height: 650px;
     width: 500px;
@@ -123,7 +129,7 @@ fieldset {
 .item, #remove, #empty {
     border-radius: .25rem;
     box-sizing: border-box;
-    color: #FFFFFF;
+    color: var(--text-button-colour-white);
     display: flex;
     font-size: 14px;
     align-items: center;
@@ -144,7 +150,7 @@ fieldset {
 
 /* Specific Item Styles */
 .trash {
-    background-image: linear-gradient(-180deg, var(--color-grey-light) 0%, var(--color-grey-dark) 100%);
+    background-image: linear-gradient(-180deg, var(--colour-grey-light) 0%, var(--colour-grey-dark) 100%);
 }
 
 .trash:hover {
@@ -152,7 +158,7 @@ fieldset {
 }
 
 .slightly-trash {
-    background-image: linear-gradient(-180deg, var(--color-light-blue) 0%, var(--color-dark-blue) 100%);
+    background-image: linear-gradient(-180deg, var(--colour-light-blue) 0%, var(--colour-dark-blue) 100%);
 }
 
 .slightly-trash:hover {
@@ -161,7 +167,7 @@ fieldset {
 }
 
 .money {
-    background-image: linear-gradient(-180deg, var(--color-green) 0%, var(--color-dark-green) 100%);
+    background-image: linear-gradient(-180deg, var(--colour-green) 0%, var(--colour-dark-green) 100%);
 }
 
 .money:hover {
@@ -169,7 +175,7 @@ fieldset {
 }
 
 .good-money {
-    background-image: linear-gradient(-180deg, var(--color-gold) 0%, var(--color-dark-gold) 100%);
+    background-image: linear-gradient(-180deg, var(--colour-gold) 0%, var(--colour-dark-gold) 100%);
 }
 
 .good-money:hover {
@@ -177,7 +183,7 @@ fieldset {
 }
 
 .rich {
-    background-image: linear-gradient(-180deg, var(--color-purple) 0%, var(--color-dark-purple) 100%);
+    background-image: linear-gradient(-180deg, var(--colour-purple) 0%, var(--colour-dark-purple) 100%);
 }
 
 .rich:hover {
@@ -185,7 +191,7 @@ fieldset {
 }
 
 .oxblood {
-    background-image: linear-gradient(-180deg, var(--color-red) 0%, var(--color-dark-red) 100%);
+    background-image: linear-gradient(-180deg, var(--colour-red) 0%, var(--colour-dark-red) 100%);
 }
 
 .oxblood:hover {
@@ -239,7 +245,7 @@ fieldset {
     text-align: center;
     border-radius: 0.25rem;
     margin-bottom: 2px;
-    background-color: var(--color-green);
+    background-color: var(--colour-green);
 }
 
 main {
@@ -254,9 +260,9 @@ main {
     align-items: center;
     width: 150px;
     height: 400px;
-    box-shadow: 0 0 10px var(--color-dark-shadow);
+    box-shadow: 0 0 10px var(--colour-dark-shadow);
     border-radius: 1rem;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: var(--section-opaque);
 }
 
 #value {
@@ -275,8 +281,26 @@ main {
     display: flex;
     align-items: center;
     position: relative;
-    background-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 0 10px var(--color-dark-shadow);
+    background-color: var(--section-opaque);
+    box-shadow: 0 0 10px var(--colour-dark-shadow);
     border-radius: 1rem;
     flex-direction: column;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-colour: #121212;
+        color: var(--text-colour-white);
+        --background-opaque: rgba(255, 255, 255, 0.0);
+        --section-opaque: rgba( 0, 0, 0, 0.4);
+        --text-colour: #ffffff;
+        --header-opaque: rgba( 255, 255, 255, 0.0);
+        --background-image-opacity: 1;
+    }
+    header {
+        box-shadow: none;
+        background-color: transparent;
+    }
+    
 }
