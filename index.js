@@ -5,7 +5,8 @@ const removeBtn = document.getElementById("remove");
 const bucketContents = document.getElementById("bucket-contents");
 const valueDisplay = document.getElementById("value");
 const bucketElement = document.getElementById("bucket-img");
-console.log(bucketElement);
+
+
 let totalValue = Number(valueDisplay.textContent);
 let bucketWeight = Number(bucketWeightDisplay.textContent);
 
@@ -138,8 +139,7 @@ emptyBtn.addEventListener("click", () => {
     
     bucketWeightDisplay.textContent = bucketWeight;
     bucketContents.innerHTML = "";
-    bucketElement.style.fill = "black";
-    bucketElement.style.stroke = "black";
+    updateWarningColour(bucketWeight);
     
     valueDisplay.textContent = totalValue;
     valueDisplay.style.color = "red";
@@ -180,10 +180,17 @@ function updateWarningColour(weight) {
     const yellowBase = 40;
     const orangeBase = 44;
     const interval = 50;
+    const darkModeToggle = document.getElementById('darkmode-toggle');
     
     if (weight <= 0) {
-        bucketElement.style.stroke = "black";
-        bucketElement.style.fill = "black";
+        if (darkModeToggle.checked) {
+            bucketElement.style.stroke = "white";
+            bucketElement.style.fill = "white";
+        } else {
+            bucketElement.style.stroke = "black";
+            bucketElement.style.fill = "black";
+        }
+        
     } else if (normaliseMod(weight - redBase, interval) <= 5) {
         bucketElement.style.fill = "red";
         bucketElement.style.stroke = "red";
@@ -194,8 +201,13 @@ function updateWarningColour(weight) {
         bucketElement.style.stroke = "gold";
         bucketElement.style.fill = "gold";
     } else {
-        bucketElement.style.stroke = "black";
-        bucketElement.style.fill = "black";
+        if (darkModeToggle.checked) {
+            bucketElement.style.stroke = "white";
+            bucketElement.style.fill = "white";
+        } else {
+            bucketElement.style.stroke = "black";
+            bucketElement.style.fill = "black";
+        }
     }
 }
 
@@ -250,5 +262,26 @@ function normaliseValue(value, min, max) {
 function normaliseMod(dividend, divisor) {
     return ((dividend % divisor) + divisor) % divisor;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const darkModeToggle = document.getElementById('darkmode-toggle');
+    const body = document.body;
+
+    // Load saved dark mode preference from localStorage
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+    }
+
+    darkModeToggle.addEventListener('change', () => {
+        if (darkModeToggle.checked) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', 'disabled');
+        }
+        updateWarningColour(bucketWeight);
+    });
+});
 
 
