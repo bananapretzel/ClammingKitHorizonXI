@@ -13,6 +13,7 @@
     --colour-dark-gold: #d5b500;
     --colour-purple: #a400da;
     --colour-dark-purple: #710096;
+    --colour-dark-orange: var(--colour-dark-orange);
     --colour-red: #e01c1c;
     --colour-dark-red: #9f0c0c;
     --colour-grey-light: #c0c0c0;
@@ -83,7 +84,9 @@ h2 {
 }
 
 h3 {
-    margin: 0;
+    margin-top: 50px;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .logo {
@@ -389,7 +392,7 @@ label svg {
     width: 25%;
     /*scale of the sun & moon */
     top: 19%;
-    z-index: 100;
+    z-index: 1;
 }
 
 label svg.sun {
@@ -417,3 +420,87 @@ input:checked+label svg.moon {
         display: none;
     }
 }
+
+.side-panel-toggle {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    margin-top: 20px;
+    background-color: var(--colour-grey-dark);
+    right: 0px;
+    border-radius: 0px 0px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    transition: 0.5s;
+    transform: rotate(90deg);
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    z-index: 2;
+    cursor: pointer;
+
+}
+
+.side-panel {
+    height: 100%;
+    overflow: hidden;
+    width: 300px;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: -340px;
+    padding: 20px;
+    background-color: var(--background-colour);
+    overflow-x: hidden;
+    transition: 0.5s;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.5);
+    
+    padding-top: 50px;
+}
+
+
+.pair {
+    display: flex;
+    align-items: center;
+    height:25px;
+    
+}
+
+.box {
+    height: 12.5px;
+    width: 12.5px;
+    margin-right: 10px;
+}
+
+.grey {
+    background-color: var(--colour-grey-light);
+}
+
+.blue{
+    background-color: var(--colour-light-blue);
+}
+
+.green {
+    background-color: var(--colour-green);
+}
+
+.yellow {
+    background-color: var(--colour-gold);
+}
+
+.purple {
+    background-color: var(--colour-purple);
+}
+
+.red {
+    background-color: var(--colour-red);
+}
+
+.orange {
+    background-color: darkorange;
+}
+
+.background-colour {
+    background-color: var(--text-colour);
+}
+

@@ -5,10 +5,22 @@ const removeBtn = document.getElementById("remove");
 const bucketContents = document.getElementById("bucket-contents");
 const valueDisplay = document.getElementById("value");
 const bucketElement = document.getElementById("bucket-img");
+const sidePanelToggle = document.querySelector(".side-panel-toggle");
+const darkModeToggle = document.getElementById('darkmode-toggle');
+const body = document.body;
 
 
 let totalValue = Number(valueDisplay.textContent);
 let bucketWeight = Number(bucketWeightDisplay.textContent);
+
+const SOUNDS = {
+     trash: new Audio("./assets/sounds/Coins_02.WAV"),
+     slightlyTrash: new Audio("./assets/sounds/Coins_04.WAV"),
+     money: new Audio("./assets/sounds/Coins_10.WAV"),
+     goodMoney: new Audio("./assets/sounds/Coins_12.WAV"),
+     rich: new Audio("./assets/sounds/Coins_14.WAV"),
+     oxblood: new Audio("./assets/sounds/Coins_15.WAV"),
+};
 
 const COLOURS = {
     trash: "#c0c0c0",
@@ -68,6 +80,7 @@ fieldset.addEventListener("click", (event) => {
         updateValues(itemName);
         updateProfitGradient(totalValue);
         updateWarningColour(bucketWeight);
+        playSound(itemName);
     }
 });
 
@@ -104,7 +117,7 @@ function addToBucket(itemName) {
  * @returns {string} The color code associated with the given item value.
  */
 function getItemColour(value) {
-    if (value < 250) return COLOURS.trash;
+    if (value <= 250) return COLOURS.trash;
     if (value <= 1000) return COLOURS.slightlyTrash;
     if (value <= 2000) return COLOURS.money;
     if (value <= 5000) return COLOURS.goodMoney;
@@ -180,34 +193,19 @@ function updateWarningColour(weight) {
     const yellowBase = 40;
     const orangeBase = 44;
     const interval = 50;
-    const darkModeToggle = document.getElementById('darkmode-toggle');
     
     if (weight <= 0) {
-        if (darkModeToggle.checked) {
-            bucketElement.style.stroke = "white";
-            bucketElement.style.fill = "white";
-        } else {
-            bucketElement.style.stroke = "black";
-            bucketElement.style.fill = "black";
-        }
-        
+        bucketElement.style.stroke = bucketElement.style.fill = 
+        darkModeToggle.checked ? "white" : "black";
     } else if (normaliseMod(weight - redBase, interval) <= 5) {
-        bucketElement.style.fill = "red";
-        bucketElement.style.stroke = "red";
+        bucketElement.style.fill = bucketElement.style.stroke = "red";
     } else if (Math.abs(weight - orangeBase) % interval === 0) {
-        bucketElement.style.stroke = "darkorange";
-        bucketElement.style.fill = "darkorange";
+        bucketElement.style.stroke = bucketElement.style.fill = "darkorange";
     } else if (normaliseMod(weight - yellowBase, interval) <= 3) {
-        bucketElement.style.stroke = "gold";
-        bucketElement.style.fill = "gold";
+        bucketElement.style.stroke = bucketElement.style.fill = "gold";
     } else {
-        if (darkModeToggle.checked) {
-            bucketElement.style.stroke = "white";
-            bucketElement.style.fill = "white";
-        } else {
-            bucketElement.style.stroke = "black";
-            bucketElement.style.fill = "black";
-        }
+        bucketElement.style.stroke = bucketElement.style.fill = 
+        darkModeToggle.checked ? "white" : "black";
     }
 }
 
@@ -234,8 +232,7 @@ function updateProfitGradient(value) {
         blue = Math.round(50 * modifier);
     }
 
-    const colour = `rgb(${red}, ${green}, ${blue})`;
-    valueDisplay.style.color = colour;
+    valueDisplay.style.color = `rgb(${red}, ${green}, ${blue})`;
 }
 
 /**
@@ -263,25 +260,41 @@ function normaliseMod(dividend, divisor) {
     return ((dividend % divisor) + divisor) % divisor;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const darkModeToggle = document.getElementById('darkmode-toggle');
-    const body = document.body;
 
-    // Load saved dark mode preference from localStorage
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        body.classList.add('dark-mode');
-    }
-
-    darkModeToggle.addEventListener('change', () => {
-        if (darkModeToggle.checked) {
-            body.classList.add('dark-mode');
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
-            body.classList.remove('dark-mode');
-            localStorage.setItem('darkMode', 'disabled');
-        }
-        updateWarningColour(bucketWeight);
-    });
+darkModeToggle.addEventListener('change', () => {
+    body.classList.toggle('dark-mode', darkModeToggle.checked);
+    updateWarningColour(bucketWeight);
+    updateProfitGradient(totalValue);
 });
 
+sidePanelToggle.addEventListener("click", () => {
+    const sidePanel = document.querySelector(".side-panel");
 
+    if (sidePanel.style.right === "0px") {
+        // Close the side panel
+        sidePanel.style.right = "-340px";
+        sidePanelToggle.style.right = "0px"; // Reset toggle button position
+    } else {
+        // Open the side panel
+        sidePanel.style.right = "0px";
+        sidePanelToggle.style.right = "340px"; // Move toggle button with the panel
+    }
+});
+
+function playSound (itemName) {
+    const itemValue = ITEM_VALUES[itemName].value;
+    let sound;
+    
+    if (itemValue <= 250) sound = SOUNDS.trash;
+    else if (itemValue <= 1000) sound = SOUNDS.slightlyTrash;
+    else if (itemValue <= 2000) sound = SOUNDS.money;
+    else if (itemValue <= 5000) sound = SOUNDS.goodMoney;
+    else if (itemValue <= 10000) sound = SOUNDS.rich;
+    else sound = SOUNDS.oxblood;
+    
+    sound.cloneNode().play();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    darkModeToggle.checked ? body.classList.add('dark-mode') : body.classList.remove('dark-mode');
+});
