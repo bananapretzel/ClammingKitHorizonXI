@@ -219,19 +219,31 @@ function updateProfitGradient(value) {
     const min = -500;
     const breakEven = 0;
     const max = 4000;
+     let red, green, blue = 0;
 
-    let red, green, blue = 0;
-    if (value <= 0) {
-        const modifier = normaliseValue(value, min, breakEven);
-        red = Math.round(255 * (1 - modifier));
-        green = 0;
+    if (darkModeToggle.checked) {
+        if (value <= 0) {
+            const modifier = normaliseValue(value, min, breakEven);
+            red = 255;
+            green = Math.round(255 * modifier);
+            blue = Math.round(255 * modifier);         
+        } else {
+            const modifier = normaliseValue(value, breakEven, max);
+            red = Math.round(255 * (1 - modifier));
+            green= 255;
+            blue = Math.round(255 * (1 - modifier));
+        }
     } else {
-        const modifier = normaliseValue(value, breakEven, max);
-        red = Math.round(50 * modifier);
-        green = Math.round(200 * modifier);
-        blue = Math.round(50 * modifier);
+        if (value <= 0) {
+            const modifier = normaliseValue(value, min, breakEven);
+            red = Math.round(255 * (1 - modifier));
+        } else {
+            const modifier = normaliseValue(value, breakEven, max);
+            red = Math.round(50 * modifier);
+            green = Math.round(200 * modifier);
+            blue = Math.round(50 * modifier);
+        }
     }
-
     valueDisplay.style.color = `rgb(${red}, ${green}, ${blue})`;
 }
 
@@ -260,13 +272,26 @@ function normaliseMod(dividend, divisor) {
     return ((dividend % divisor) + divisor) % divisor;
 }
 
-
+/**
+ * Handles the dark mode toggle switch.
+ * Toggles the 'dark-mode' class on the body element and updates the 
+ * visual indicators (profit gradient and bucket warning color) accordingly.
+ * 
+ * @returns {void}
+ */
 darkModeToggle.addEventListener('change', () => {
     body.classList.toggle('dark-mode', darkModeToggle.checked);
     updateWarningColour(bucketWeight);
     updateProfitGradient(totalValue);
 });
 
+/**
+ * Handles the side panel toggle button click.
+ * Opens or closes the side panel by adjusting its position and 
+ * moves the toggle button accordingly.
+ * 
+ * @returns {void}
+ */
 sidePanelToggle.addEventListener("click", () => {
     const sidePanel = document.querySelector(".side-panel");
 
@@ -281,9 +306,16 @@ sidePanelToggle.addEventListener("click", () => {
     }
 });
 
+/**
+ * Plays the appropriate sound based on the item's value.
+ * 
+ * @param {string} itemName - The name of the item whose value determines the sound to play.
+ * @returns {void}
+ */
 function playSound (itemName) {
     const itemValue = ITEM_VALUES[itemName].value;
     let sound;
+
     
     if (itemValue <= 250) sound = SOUNDS.trash;
     else if (itemValue <= 1000) sound = SOUNDS.slightlyTrash;
@@ -291,10 +323,20 @@ function playSound (itemName) {
     else if (itemValue <= 5000) sound = SOUNDS.goodMoney;
     else if (itemValue <= 10000) sound = SOUNDS.rich;
     else sound = SOUNDS.oxblood;
-    
-    sound.cloneNode().play();
+
+    const soundClone = sound.cloneNode(); 
+    soundClone.volume = 0.3;
+    soundClone.play();
 }
 
+/**
+ * Initializes the dark mode state when the DOM is fully loaded.
+ * Adds or removes the 'dark-mode' class based on the current state 
+ * of the dark mode toggle.
+ * 
+ * @returns {void}
+ */
 document.addEventListener('DOMContentLoaded', () => {
-    darkModeToggle.checked ? body.classList.add('dark-mode') : body.classList.remove('dark-mode');
+    darkModeToggle.checked ? body.classList.add('dark-mode') : 
+    body.classList.remove('dark-mode');
 });

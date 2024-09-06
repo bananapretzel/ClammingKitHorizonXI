@@ -84,9 +84,17 @@ h2 {
 }
 
 h3 {
-    margin-top: 50px;
-    margin-bottom: 15px;
+    
+    margin-bottom: 25px;
     text-align: center;
+    font-family: var(--font-secondary);
+}
+
+hr {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 80%;
+    
 }
 
 .logo {
@@ -502,5 +510,11 @@ input:checked+label svg.moon {
 
 .background-colour {
     background-color: var(--text-colour);
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
